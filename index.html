@@ -1,5 +1,3 @@
-Hello World
-
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -13,26 +11,30 @@ Hello World
   <body>
     <canvas id="KacperCanvas" width="800" height="600"></canvas>
     <script>
-      var canvas = document.getElementById("KacperCanvas");
-      var context = canvas.getContext('2d');
+    
+        var canvas = document.getElementById("KacperCanvas");
+        var context = canvas.getContext('2d');
 
-      context.beginPath();
-      context.arc(95, 50, 40, 0, 2 * Math.PI);
-      context.fill;
+        context.beginPath();
+        context.arc(95, 50, 40, 0, 2 * Math.PI);
+        context.fill();
 
-      // set line color
-      context.fillStyle = "#00ff00";
-      context.fill();
+        var colors = ["#008000", "#0000FF"];
+        var i = 0;
+        // set line color
+        context.fillStyle = colors[i];
+        context.fill();
+            
 
-      var i = 0;
+        function changeColor() {
+          context.fillStyle = context.fillStyle === colors[0] ? colors[1] : colors[0];
+          context.fill();
+        }
 
-      function changeColor()
-      {
-          var color = ["00ff00", "0000ff"];
-          context.fillStyle = color[i];
-          i = (i + 1) % color.length;
-      }
-      setInterval(changeColor, 1000);
+        setInterval(changeColor, 1000);
+ 
+      
+      
     </script>
   </body>
 </html> 
