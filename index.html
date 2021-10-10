@@ -1,1 +1,38 @@
 Hello World
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 4px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="KacperCanvas" width="800" height="600"></canvas>
+    <script>
+      var canvas = document.getElementById("KacperCanvas");
+      var context = canvas.getContext('2d');
+
+      context.beginPath();
+      context.arc(95, 50, 40, 0, 2 * Math.PI);
+      context.fill;
+
+      // set line color
+      context.fillStyle = "#00ff00";
+      context.fill();
+
+      var i = 0;
+
+      function changeColor()
+      {
+          var color = ["00ff00", "0000ff"];
+          context.fillStyle = color[i];
+          i = (i + 1) % color.length;
+      }
+      setInterval(changeColor, 1000);
+    </script>
+  </body>
+</html> 
