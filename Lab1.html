@@ -13,29 +13,50 @@
     <script>
     
         var canvas = document.getElementById("KacperCanvas");
-        var context = canvas.getContext('2d');
+        var c = canvas.getContext('2d');
 
-        context.beginPath();
-        context.arc(95, 50, 40, 0, 2 * Math.PI);
-        context.fill();
+        // c.beginPath();
+        // c.arc(120, 120, 100, 0, 2 * Math.PI);
+        // c.fill();
 
         var colors = ["#008000", "#0000FF"];
         var i = 0;
         // set line color
-        context.fillStyle = colors[i];
-        context.fill();
+        c.fillStyle = colors[i];
+        c.fill();
             
 
         function changeColor() {
-          context.fillStyle = context.fillStyle === colors[0] ? colors[1] : colors[0];
-          context.fill();
+          c.fillStyle = c.fillStyle === colors[0] ? colors[1] : colors[0];
+          c.fill();
         }
 
-        setInterval(changeColor, 1000);
+        var y = 200;
+        var dy = 3;
+        var circleRadius = 40;
 
-      
-      
-      
-    </script>
+        function animate(){
+          requestAnimationFrame(animate);
+          c.clearRect(0,0,innerWidth,innerHeight);
+
+          c.beginPath();
+          c.arc(200, y, circleRadius, 0, 2 * Math.PI);
+          //c.fillStyle = c.fillStyle === colors[0] ? colors[1] : colors[0];
+          c.fill();
+
+          //setInterval(changeColor, 1000);
+
+          if(y + circleRadius > canvas.height || y-circleRadius < 100)
+          {
+            dy = -dy;
+          }
+
+          y += dy;
+          
+          
+        }
+        
+        animate();
+   </script>
   </body>
 </html> 
