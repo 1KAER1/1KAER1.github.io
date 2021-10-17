@@ -98,20 +98,6 @@
 
             circleY += dy;
         }
-
-        // if(spacePressed)
-        //     {
-        //         requestAnimationFrame(bullet);
-        //     c.clearRect(0, 0, canvas.width, canvas.height);
-
-        //     c.beginPath();
-        //     c.arc(rectangleX, rectangleY, circleRadius, 0, Math.PI*2);
-        //     c.fillStyle = "#0095DD";
-        //     c.fill();
-        //     c.closePath();
-
-        //     rectangleY += 1;
-        //     }
         
 
         function draw() 
@@ -129,13 +115,13 @@
             }
 
             if(bullet == true)
-            {
-                circleX = rectangleX + rectangleWidth/2;
+            {                
                 shoot();
             }
 
             if(spacePressed)
             {
+                circleX = rectangleX + rectangleWidth/2;
                 bullet = true;
                 spacePressed = false;
             }
