@@ -1,99 +1,98 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <style>
-      body {
-        margin: 4px;
-        padding: 0px;
-      }
-    </style>
-  </head>
-  <body>
+
+<head>
+  <style>
+    body {
+      margin: 4px;
+      padding: 0px;
+    }
+  </style>
+</head>
+
+<body>
   <a href="index.html">GO BACK</a>
   </br>
 
-    <canvas id="KacperCanvas" width="800" height="600"></canvas>
-    <script>
-        
-        
-        var canvas = document.getElementById("KacperCanvas");
-        var c = canvas.getContext('2d');
+  <canvas id="KacperCanvas" width="800" height="600"></canvas>
+  <script>
 
-        // c.beginPath();
-        // c.arc(95, 50, 40, 0, 2 * Math.PI);
-        // c.fill();
 
-        // var colors = ["#008000", "#0000FF"];
-        // var i = 0;
-        // // set line color
-        // c.fillStyle = colors[i];
-        // c.fill();
-            
+    var canvas = document.getElementById("KacperCanvas");
+    var c = canvas.getContext('2d');
 
-        // function changeColor() {
-        //   c.fillStyle = c.fillStyle === colors[0] ? colors[1] : colors[0];
-        //   c.fill();
-        // }
+    // c.beginPath();
+    // c.arc(95, 50, 40, 0, 2 * Math.PI);
+    // c.fill();
 
-        // setInterval(changeColor, 1000);
-        
+    // var colors = ["#008000", "#0000FF"];
+    // var i = 0;
+    // // set line color
+    // c.fillStyle = colors[i];
+    // c.fill();
 
-        // circle x and y coordinates
-        var x = 200;
-        var y = 200;
-        // circle velocity
-        var dy = 3;
-        
-        var circleRadius = 100;
 
-        // colors values
-        var g = 255;
-        var b = 0;
+    // function changeColor() {
+    //   c.fillStyle = c.fillStyle === colors[0] ? colors[1] : colors[0];
+    //   c.fill();
+    // }
 
-        var direction = 0;
+    // setInterval(changeColor, 1000);
 
-        function animate(){
-          requestAnimationFrame(animate);
-          c.clearRect(0,0,innerWidth,innerHeight);
 
-          c.beginPath();
-          c.arc(x, y, circleRadius, 0, 2 * Math.PI);
+    // circle x and y coordinates
+    var x = 200;
+    var y = 200;
+    // circle velocity
+    var dy = 3;
 
-          var gradient = c.createRadialGradient(x, y, circleRadius, x, y, circleRadius-20);
-          gradient.addColorStop(0, "rgb(0," + g + "," + b + ")" );
-          gradient.addColorStop(0, "rgb(0," + g + "," + b + ")" );
+    var circleRadius = 100;
 
-          
+    // colors values
+    var g = 255;
+    var b = 0;
 
-          if(g < 0)
-          {
-              direction = 1;          
-          }else if(g>255)
-          {
-            direction = 0;
-          }
+    var direction = 0;
 
-          if(direction == 0)
-          {
-             g--;
-             b++;
-          }else{
-            g++;
-            b--;
-          }         
-          
-          c.fillStyle = gradient;
-          c.fill();
+    function animate() {
+      requestAnimationFrame(animate);
+      c.clearRect(0, 0, innerWidth, innerHeight);
 
-          if(y + circleRadius > canvas.height || y-circleRadius < 100)
-          {
-            dy = -dy;
-          }
+      c.beginPath();
+      c.arc(x, y, circleRadius, 0, 2 * Math.PI);
 
-          y += dy;         
-        }
-        
-        animate();
-   </script>
-  </body>
-</html> 
+      var gradient = c.createRadialGradient(x, y, circleRadius, x, y, circleRadius - 20);
+      gradient.addColorStop(0, "rgb(0," + g + "," + b + ")");
+      gradient.addColorStop(0, "rgb(0," + g + "," + b + ")");
+
+
+
+      if (g < 0) {
+        direction = 1;
+      } else if (g > 255) {
+        direction = 0;
+      }
+
+      if (direction == 0) {
+        g--;
+        b++;
+      } else {
+        g++;
+        b--;
+      }
+
+      c.fillStyle = gradient;
+      c.fill();
+
+      if (y + circleRadius > canvas.height || y - circleRadius < 100) {
+        dy = -dy;
+      }
+
+      y += dy;
+    }
+
+    animate();
+  </script>
+</body>
+
+</html>
