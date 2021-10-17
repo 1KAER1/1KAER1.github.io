@@ -16,16 +16,18 @@
  
         var canvas = document.getElementById("KacperCanvas");
         var c = canvas.getContext("2d");
-        var ballRadius = 10;
+        var ballRadius = 40;
+        var circleRadius = 10
         var x = canvas.width/2;
         var y = canvas.height-30;
         var dx = 2;
         var dy = -2;
-        var paddleHeight = 50;
-        var paddleWidth = 50;
-        var paddleX = (canvas.width-paddleWidth)/2;
+        var rectangleHeight = 50;
+        var rectangleWidth = 50;
+        var rectangleX = (canvas.width-rectangleWidth)/2;
         var rightPressed = false;
         var leftPressed = false;
+        var spacePressed = false;
        
 
         document.addEventListener("keydown", keyDownHandler, false);
@@ -38,6 +40,10 @@
             else if(e.keyCode == 37) {
                 leftPressed = true;
             }
+            else if(e.keyCode == 32)
+            {
+                spacePressed = true;
+            }
         }
         function keyUpHandler(e) {
             if(e.keyCode == 39) {
@@ -46,11 +52,15 @@
             else if(e.keyCode == 37) {
                 leftPressed = false;
             }
+            else if(e.keyCode == 32)
+            {
+                spacePressed = false;
+            }
         }
 
         function drawRectangle() {
             c.beginPath();
-            c.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+            c.rect(rectangleX, canvas.height-rectangleHeight, rectangleWidth, rectangleHeight);
             c.fillStyle = "#c40000";
             c.fill();
             c.closePath();
@@ -67,11 +77,11 @@
                 dy = -dy;
             }
             
-            if(rightPressed && paddleX < canvas.width-paddleWidth) {
-                paddleX += 7;
+            if(rightPressed && rectangleX < canvas.width-rectangleWidth) {
+                rectangleX += 7;
             }
-            else if(leftPressed && paddleX > 0) {
-                paddleX -= 7;
+            else if(leftPressed && rectangleX > 0) {
+                rectangleX -= 7;
             }
             
             x += dx;
