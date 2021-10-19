@@ -76,6 +76,16 @@ function spawnEnemy() {
     enemies.push(new Actor(enemyX, enemyY, enemyRadius, "#BB2100", 3));
 }
 
+function isColliding(bullet, enemy, ei, bi) {
+    const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+    if (distance - enemy.size - bullet.size < 1) {
+        enemies.splice(ei, 1);
+        bullets.splice(bi, 1);
+    }
+
+    return true;
+}
+
 function menu() {
     clearScreen();
     c.fillStyle = "#666666";
@@ -148,6 +158,13 @@ function animate() {
     // Shoot the bullet
     bullets.forEach(bullet => {
         bullet.update();
+    });
+
+    // Check if the bullet collided with enemy
+    enemies.forEach(function(enemy, ei) {
+        bullets.forEach((bullet, bi) => {
+            if (isColliding(bullet, enemy, ei, bi)) {}
+        });
     });
 
 
