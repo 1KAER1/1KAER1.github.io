@@ -12,6 +12,7 @@ var bulletRadius = 15;
 var enemySpeed = 1;
 var enemyCount = 0;
 var enemiesDestroyed = 0;
+var enemiesSpawRate = 1200;
 
 // Keys
 var rightPressed = false;
@@ -86,11 +87,11 @@ function isColliding(bullet, enemy, ei, bi) {
         score += 5;
         enemiesDestroyed++;
         enemyCount--;
+
         if (lives < 6) {
             lives++;
         }
     }
-
     return true;
 }
 
@@ -109,25 +110,28 @@ function menu() {
     canvas.addEventListener("click", startGame);
 }
 
-var timeoutID = null;
-var enemiesSpawRate = 3000;
-
-function startGame() {
-    timeoutId = setInterval(spawnEnemy, enemiesSpawRate);
-    setTimeout(spawnEnemy, 1000);
-    animate();
-    canvas.removeEventListener("click", startGame);
-}
-
 function endGame() {
-    clearInterval(timeoutID);
-
     clearScreen();
     c.fillStyle = "#666666";
     c.font = "24px Arial";
     c.textAlign = "center";
     c.fillText("Game Over. Final Score: " + score, canvas.width / 2, canvas.height / 2);
+    c.fillText("Click on screen to play again", canvas.width / 2, canvas.height / 2 + 100);
+    enemies = [];
+    bullets = [];
+    lives = 6;
+    enemyCount = 0;
+    score = 0;
+    enemiesDestroyed = 0;
+    canvas.addEventListener("click", startGame);
 }
+
+function startGame() {
+    animate();
+    canvas.removeEventListener("click", startGame);
+}
+
+
 
 addEventListener('keydown', function(e) {
     e.preventDefault();
@@ -204,7 +208,7 @@ function animate() {
     c.fillText("Enemies destroyed: " + enemiesDestroyed, canvas.width, 25);
 
     // End or continue the game
-    if (lives == 0) {
+    if (lives <= 0) {
         endGame();
     } else {
         window.requestAnimationFrame(animate);
@@ -213,4 +217,4 @@ function animate() {
 }
 
 menu();
-canvas.focus();
+setInterval(spawnEnemy, enemiesSpawRate);
