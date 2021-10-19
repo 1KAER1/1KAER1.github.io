@@ -58,6 +58,24 @@ class Actor {
 // Create the player
 var player = new Actor(canvas.width / 2 - playerSize / 2, canvas.height - playerSize, playerSize, "#00C91C", 3);
 
+var bullets = [];
+var enemies = [];
+
+function getRandomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+// Spawning new enemies
+function spawnEnemy() {
+    var enemyRadius = getRandomNumber(30, 50);
+    var enemyX = getRandomNumber(enemyRadius, canvas.width - enemyRadius);
+    var enemyY = getRandomNumber(enemyRadius + 50, 200);
+
+    enemies.push(new Actor(enemyX, enemyY, enemyRadius, "#BB2100", 3));
+}
+
 function menu() {
     clearScreen();
     c.fillStyle = "#666666";
@@ -80,46 +98,28 @@ function startGame() {
     canvas.removeEventListener("click", startGame);
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-    if (e.keyCode == 39) {
+addEventListener('keydown', function(e) {
+    e.preventDefault();
+    if (e.keyCode === 39) {
         rightPressed = true;
-    } else if (e.keyCode == 37) {
+    }
+    if (e.keyCode === 37) {
         leftPressed = true;
-    } else if (e.keyCode == 32) {
-        spacePressed = true;
     }
-}
+    if (e.keyCode === 32) {
+        bullets.push(new Actor(player.x + playerSize / 2, player.y + playerSize / 2, 10, "#3A3A3A", 3));
+    }
+});
 
-function keyUpHandler(e) {
-    if (e.keyCode == 39) {
+addEventListener('keyup', function(e) {
+    e.preventDefault();
+    if (e.keyCode === 39) {
         rightPressed = false;
-    } else if (e.keyCode == 37) {
-        leftPressed = false;
-    } else if (e.keyCode == 32) {
-        spacePressed = false;
     }
-}
-
-function drawRectangle() {
-    c.beginPath();
-    c.rect(rectangleX, rectangleY, rectangleWidth, rectangleHeight);
-    c.fillStyle = "#c40000";
-    c.fill();
-    c.closePath();
-}
-
-function shoot() {
-    c.beginPath();
-    c.arc(circleX, circleY, circleRadius, 0, Math.PI * 2);
-    c.fillStyle = "#0095DD";
-    c.fill();
-    c.closePath();
-
-    circleY += dy;
-}
+    if (e.keyCode === 37) {
+        leftPressed = false;
+    }
+});
 
 function clearScreen() {
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -129,8 +129,26 @@ function clearScreen() {
 function animate() {
     clearScreen();
 
+    // Draw the enemy
+    enemies.forEach(function(enemy) {
+        enemy.drawArc();
+    });
+
+
+    // Player controls
+    if (rightPressed && player.x < canvas.width - player.size) {
+        player.x += player.velocity;
+    } else if (leftPressed && player.x > 0) {
+        player.x -= player.velocity;
+    }
+
     // Draw the player
     player.drawRectangle();
+
+    // Shoot the bullet
+    bullets.forEach(bullet => {
+        bullet.update();
+    });
 
 
     window.requestAnimationFrame(animate);
