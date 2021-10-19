@@ -35,7 +35,7 @@ class Actor {
 
     drawRectangle() {
         c.beginPath();
-        c.rect(this.x, this.y, this.size, this.size);
+        c.rect(this.x, this.y, this.size, this.size / 2);
         c.fillStyle = this.color;
         c.fill();
         c.closePath();
