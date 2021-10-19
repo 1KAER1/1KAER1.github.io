@@ -55,6 +55,7 @@ class Actor {
     }
 }
 
+
 // Create the player
 var player = new Actor(canvas.width / 2 - playerSize / 2, canvas.height - playerSize, playerSize, "#00C91C", 3);
 
@@ -67,13 +68,14 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// Spawning new enemies
 function spawnEnemy() {
     var enemyRadius = getRandomNumber(30, 50);
     var enemyX = getRandomNumber(enemyRadius, canvas.width - enemyRadius);
     var enemyY = getRandomNumber(enemyRadius + 50, 200);
 
     enemies.push(new Actor(enemyX, enemyY, enemyRadius, "#BB2100", 3));
+    enemyCount++;
+    lives--;
 }
 
 function isColliding(bullet, enemy, ei, bi) {
@@ -81,6 +83,12 @@ function isColliding(bullet, enemy, ei, bi) {
     if (distance - enemy.size - bullet.size < 1) {
         enemies.splice(ei, 1);
         bullets.splice(bi, 1);
+        score += 5;
+        enemiesDestroyed++;
+        enemyCount--;
+        if (lives < 6) {
+            lives++;
+        }
     }
 
     return true;
@@ -106,6 +114,16 @@ function startGame() {
     setTimeout(spawnEnemy, 1000);
     animate();
     canvas.removeEventListener("click", startGame);
+}
+
+function endGame() {
+    clearInterval(timeoutID);
+
+    clearScreen();
+    c.fillStyle = "#666666";
+    c.font = "24px Arial";
+    c.textAlign = "center";
+    c.fillText("Game Over. Final Score: " + score, canvas.width / 2, canvas.height / 2);
 }
 
 addEventListener('keydown', function(e) {
@@ -135,7 +153,7 @@ function clearScreen() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-
+// Main loop
 function animate() {
     clearScreen();
 
@@ -143,7 +161,6 @@ function animate() {
     enemies.forEach(function(enemy) {
         enemy.drawArc();
     });
-
 
     // Player controls
     if (rightPressed && player.x < canvas.width - player.size) {
@@ -167,8 +184,30 @@ function animate() {
         });
     });
 
+    // Draw the score
+    c.fillStyle = "#009900";
+    c.font = "24px Arial";
+    c.textAlign = "left";
+    c.fillText("Score: " + score, 1, 25);
 
-    window.requestAnimationFrame(animate);
+    c.fillStyle = "#990000";
+    c.font = "24px Arial";
+    c.textAlign = "right";
+    c.fillText("    Lives: " + lives + "    Enemies: " + enemyCount, canvas.width / 2, 25);
+
+    c.fillStyle = "#000099";
+    c.font = "24px Arial";
+    c.textAlign = "right";
+    c.fillText("Enemies destroyed: " + enemiesDestroyed, canvas.width, 25);
+
+    // End or continue the game
+    if (lives == 0) {
+        endGame();
+    } else {
+        window.requestAnimationFrame(animate);
+    }
+
 }
 
 menu();
+canvas.focus();
