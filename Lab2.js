@@ -96,12 +96,15 @@ function isColliding(bullet, enemy, ei, bi) {
 
 function menu() {
     clearScreen();
-    c.fillStyle = "#666666";
+    c.fillStyle = "#FA0000";
     c.font = "24px Arial";
     c.textAlign = "center";
     c.fillText("NACISNIJ MYSZKA NA EKRAN ABY ROZPOCZAC GRE", canvas.width / 2, canvas.height / 2);
+    c.fillStyle = "#666666";
     c.font = '18px Arial';
-    c.fillText("Poruszanie: lewa i prawa strzalka. Spacja strzal", canvas.width / 2, (canvas.height / 4) * 3);
+    c.fillText("Poruszanie: lewa i prawa strzalka. Strzelanie: SPACJA", canvas.width / 2 - 25, (canvas.height / 4) * 2.5);
+    c.font = '18px Arial';
+    c.fillText("Nie pozwol wrogom sie rozmnozyc! 6 wrogow na ekranie oznacza koniec!", canvas.width / 2 - 25, (canvas.height / 4) * 3);
     // Start the game on a click
     canvas.addEventListener("click", startGame);
 }
