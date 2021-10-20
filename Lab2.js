@@ -56,7 +56,6 @@ class Actor {
     }
 }
 
-
 // Create the player
 var player = new Actor(canvas.width / 2 - playerSize / 2, canvas.height - playerSize, playerSize, "#00C91C", 3);
 
@@ -95,6 +94,8 @@ function isColliding(bullet, enemy, ei, bi) {
     return true;
 }
 
+var timeoutID = null;
+
 function menu() {
     clearScreen();
     c.fillStyle = "#FA0000";
@@ -111,22 +112,29 @@ function menu() {
 }
 
 function endGame() {
+    clearInterval(timeoutID);
     clearScreen();
-    c.fillStyle = "#666666";
+    c.fillStyle = "#FF4A4A";
     c.font = "24px Arial";
     c.textAlign = "center";
-    c.fillText("Game Over. Final Score: " + score, canvas.width / 2, canvas.height / 2);
-    c.fillText("Click on screen to play again", canvas.width / 2, canvas.height / 2 + 100);
+    c.fillText("Game Over. Final Score: " + score, canvas.width / 2 - 20, canvas.height / 2);
+    c.fillStyle = "#666666";
+    c.fillText("Click on screen to play again", canvas.width / 2 - 20, canvas.height / 2 + 100);
+
+
+    canvas.addEventListener("click", startGame);
+}
+
+function startGame() {
+    clearInterval(timeoutID);
+    // New game setup
     enemies = [];
     bullets = [];
     lives = 6;
     enemyCount = 0;
     score = 0;
     enemiesDestroyed = 0;
-    canvas.addEventListener("click", startGame);
-}
 
-function startGame() {
     animate();
     canvas.removeEventListener("click", startGame);
 }
@@ -217,4 +225,4 @@ function animate() {
 }
 
 menu();
-setInterval(spawnEnemy, enemiesSpawRate);
+timeoutId = setInterval(spawnEnemy, enemiesSpawRate);
