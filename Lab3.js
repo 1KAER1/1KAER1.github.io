@@ -58,11 +58,11 @@ var player = new Actor(canvas.width/2 - playerWidth/2, canvas.height - playerHei
 
 var roadLine = new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1)
 
-// var roadLines = [];
+var roadLines = [];
 
-// function drawRoadLines() {
-//     roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1));
-// }
+function drawRoadLines() {
+    roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, -100, roadLineWidth, roadLineHeight, "#FFFFFF", 3));
+}
 
 addEventListener('keydown', function(e) {
     e.preventDefault();
@@ -95,14 +95,12 @@ function animate() {
     window.requestAnimationFrame(animate);
     road.drawRectangle();
 
-    roadLine.drawRectangle();
-    roadLine.update();
 
 
-    // roadLines.forEach(function (roadLine) {
-    //     roadLine.drawRectangle();
-    //     roadLine.update();
-    // });
+    roadLines.forEach(function (roadLine) {
+        roadLine.drawRectangle();
+        roadLine.update();
+    });
 
     if (rightPressed && player.x < roadX + roadWidth - player.width) {
         player.x += player.velocity;
@@ -116,3 +114,4 @@ function animate() {
 }
 
 animate();
+setInterval(drawRoadLines, 800);
