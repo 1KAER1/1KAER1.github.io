@@ -33,6 +33,12 @@ class Actor {
     }
 }
 
+//Road properties
+roadX = 100;
+roadY = 0;
+roadWidth = canvas.width - 200;
+roadHeight = canvas.height;
+
 //Road line properties
 var roadLineWidth = 10;
 var roadLineHeight = 75;
@@ -46,15 +52,17 @@ rightPressed = false;
 leftPressed = false;
 
 // Road
-var road = new Actor(100, 0, canvas.width - 200, canvas.height, "#A8A8A8", 0);
+var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
 //Player
 var player = new Actor(canvas.width/2 - playerWidth/2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 5);
 
-var roadLines = [];
+var roadLine = new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1)
 
-function drawRoadLines() {
-    roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1));
-}
+// var roadLines = [];
+
+// function drawRoadLines() {
+//     roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1));
+// }
 
 addEventListener('keydown', function(e) {
     e.preventDefault();
@@ -87,14 +95,18 @@ function animate() {
     window.requestAnimationFrame(animate);
     road.drawRectangle();
 
-    roadLines.forEach(function (roadLine) {
-        roadLine.drawRectangle();
-        roadLine.update();
-    });
+    roadLine.drawRectangle();
+    roadLine.update();
 
-    if (rightPressed && player.x < canvas.width - player.width) {
+
+    // roadLines.forEach(function (roadLine) {
+    //     roadLine.drawRectangle();
+    //     roadLine.update();
+    // });
+
+    if (rightPressed && player.x < roadX + roadWidth - player.width) {
         player.x += player.velocity;
-    } else if (leftPressed && player.x > 0) {
+    } else if (leftPressed && player.x > roadX) {
         player.x -= player.velocity;
     }
 
@@ -104,4 +116,3 @@ function animate() {
 }
 
 animate();
-setInterval(drawRoadLines, 4);
