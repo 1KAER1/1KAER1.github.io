@@ -5,6 +5,10 @@ body {
     background: linear-gradient(to top, rgba(68, 68, 68, 0.5), rgba(167, 167, 167, 0.5)) fixed;
 }
 
+h1{
+    color:rgb(148, 53, 53);
+}
+
 a{
     color: rgb(202, 0, 0);    
     text-decoration: none;
