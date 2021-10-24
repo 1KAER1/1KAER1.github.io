@@ -97,9 +97,13 @@ function animate() {
 
 
 
-    roadLines.forEach(function (roadLine) {
+    roadLines.forEach(function (roadLine, i) {
         roadLine.drawRectangle();
         roadLine.update();
+        if(roadLine.y > canvas.height + 100)
+        {
+            roadLines.splice(i, 1);
+        }
     });
 
     if (rightPressed && player.x < roadX + roadWidth - player.width) {
