@@ -54,17 +54,16 @@ leftPressed = false;
 // Road
 var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
 //Player
-var player = new Actor(canvas.width/2 - playerWidth/2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 5);
+var player = new Actor(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 5);
 
 var roadLine = new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1)
-
 var roadLines = [];
 
 function drawRoadLines() {
     roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, -100, roadLineWidth, roadLineHeight, "#FFFFFF", 3));
 }
 
-addEventListener('keydown', function(e) {
+addEventListener('keydown', function (e) {
     e.preventDefault();
     if (e.keyCode === 39) {
         rightPressed = true;
@@ -74,7 +73,7 @@ addEventListener('keydown', function(e) {
     }
 });
 
-addEventListener('keyup', function(e) {
+addEventListener('keyup', function (e) {
     e.preventDefault();
     if (e.keyCode === 39) {
         rightPressed = false;
@@ -84,6 +83,24 @@ addEventListener('keyup', function(e) {
     }
 });
 
+var obstacles = [];
+
+function getRandomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
+var obstacleWidth = 60;
+var obstacleHeight = 20;
+
+function spawnObstactle() {
+    var obstacleX = getRandomNumber(100, 600);
+
+    obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#BB2100", 3));
+    console.log("New obstacle")
+}
+
 function clearScreen() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -91,18 +108,23 @@ function clearScreen() {
 
 function animate() {
     clearScreen();
-    
+
     window.requestAnimationFrame(animate);
     road.drawRectangle();
-
-
-
+    
     roadLines.forEach(function (roadLine, i) {
         roadLine.drawRectangle();
         roadLine.update();
-        if(roadLine.y > canvas.height + 100)
-        {
+        if (roadLine.y > canvas.height + 100) {
             roadLines.splice(i, 1);
+        }
+    });
+
+    obstacles.forEach(function (obstacle, i) {
+        obstacle.drawRectangle();
+        obstacle.update();
+        if (obstacle.y > canvas.height + 100) {
+            obstacles.splice(i, 1);
         }
     });
 
@@ -119,3 +141,4 @@ function animate() {
 
 animate();
 setInterval(drawRoadLines, 800);
+setInterval(spawnObstactle, 1500);
