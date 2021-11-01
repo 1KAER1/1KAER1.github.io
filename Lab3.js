@@ -51,6 +51,10 @@ var playerHeight = 80;
 rightPressed = false;
 leftPressed = false;
 
+var gameOver = false;
+var destroy = false;
+var score = 0;
+
 // Road
 var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
 //Player
@@ -101,6 +105,21 @@ function spawnObstactle() {
     console.log("New obstacle")
 }
 
+function isColliding(x, xi) {
+    const distance = Math.hypot(player.x - x.x, player.y - x.y);
+    if (destroy == true && distance - x.y - player.y < 1) {
+        x.splice(xi, 1);
+        // score += 5;
+        // enemiesDestroyed++;
+        // enemyCount--;
+        return true;
+    } else {
+        score += 5;
+        return false;
+    }
+    
+}
+
 function clearScreen() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -111,7 +130,7 @@ function animate() {
 
     window.requestAnimationFrame(animate);
     road.drawRectangle();
-    
+
     roadLines.forEach(function (roadLine, i) {
         roadLine.drawRectangle();
         roadLine.update();
@@ -128,13 +147,21 @@ function animate() {
         }
     });
 
-    if (rightPressed && player.x < roadX + roadWidth - player.width) {
-        player.x += player.velocity;
-    } else if (leftPressed && player.x > roadX) {
-        player.x -= player.velocity;
-    }
+    // Check if the player collided with obstacle
+    obstacles.forEach(function (obstacle, oi) {
+        if (isColliding(obstacle, oi)) {
+            gameOver = true;
+            console.log("Endgame");
+         }
+    });
 
-    player.drawRectangle();
+if (rightPressed && player.x < roadX + roadWidth - player.width) {
+    player.x += player.velocity;
+} else if (leftPressed && player.x > roadX) {
+    player.x -= player.velocity;
+}
+
+player.drawRectangle();
 
 
 }
