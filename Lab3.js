@@ -105,19 +105,18 @@ function spawnObstactle() {
     console.log("New obstacle")
 }
 
-function isColliding(x, xi) {
-    const distance = Math.hypot(player.x - x.x, player.y - x.y);
-    if (destroy == true && distance - x.y - player.y < 1) {
-        x.splice(xi, 1);
+function isColliding(x) {
+    const distance = Math.hypot(x.x - player.x, x.y - player.y);
+    if (distance - x.width < 1) {
         // score += 5;
         // enemiesDestroyed++;
         // enemyCount--;
-        return true;
+        console.log(distance)        
     } else {
         score += 5;
         return false;
     }
-    
+    return true;
 }
 
 function clearScreen() {
@@ -149,19 +148,20 @@ function animate() {
 
     // Check if the player collided with obstacle
     obstacles.forEach(function (obstacle, oi) {
-        if (isColliding(obstacle, oi)) {
+        if (isColliding(obstacle)) {
+            obstacles.splice(oi, 1);
             gameOver = true;
-            console.log("Endgame");
-         }
+            console.log(gameOver);
+        }
     });
 
-if (rightPressed && player.x < roadX + roadWidth - player.width) {
-    player.x += player.velocity;
-} else if (leftPressed && player.x > roadX) {
-    player.x -= player.velocity;
-}
+    if (rightPressed && player.x < roadX + roadWidth - player.width) {
+        player.x += player.velocity;
+    } else if (leftPressed && player.x > roadX) {
+        player.x -= player.velocity;
+    }
 
-player.drawRectangle();
+    player.drawRectangle();
 
 
 }
