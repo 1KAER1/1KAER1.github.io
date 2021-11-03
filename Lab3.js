@@ -58,7 +58,7 @@ var score = 0;
 // Road
 var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
 //Player
-var player = new Actor(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 5);
+var player = new Actor(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 4);
 
 var roadLine = new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1)
 var roadLines = [];
@@ -95,7 +95,7 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var obstacleWidth = 60;
+var obstacleWidth = 120;
 var obstacleHeight = 20;
 
 function spawnObstactle() {
@@ -105,13 +105,24 @@ function spawnObstactle() {
     console.log("New obstacle")
 }
 
+var bonuses = [];
+var bonusWidth = 30;
+var bonusHeight = 30;
+
+function spawnBonus() {
+    var bonusX = getRandomNumber(100, 600);
+
+    bonuses.push(new Actor(bonusX, -100, bonusWidth, bonusHeight, "#68FF8A", 3));
+    console.log("New Bonus")
+}
+
 function isColliding(x) {
     const distance = Math.hypot(x.x - player.x, x.y - player.y);
     if (distance - x.width < 1) {
         // score += 5;
         // enemiesDestroyed++;
         // enemyCount--;
-        console.log(distance)        
+        console.log(distance)
     } else {
         score += 5;
         return false;
@@ -141,17 +152,26 @@ function animate() {
     obstacles.forEach(function (obstacle, i) {
         obstacle.drawRectangle();
         obstacle.update();
+        const distance = Math.hypot((player.x + player.width / 2) - (obstacle.x + obstacle.width / 2), (player.y + player.height / 2) - (obstacle.y + obstacle.height / 2));
         if (obstacle.y > canvas.height + 100) {
             obstacles.splice(i, 1);
+        } else if (distance - player.width * 2 < 1) {
+            obstacles.splice(i, 1);
+            gameOver = true;
+            console.log(gameOver);
         }
     });
 
-    // Check if the player collided with obstacle
-    obstacles.forEach(function (obstacle, oi) {
-        if (isColliding(obstacle)) {
-            obstacles.splice(oi, 1);
-            gameOver = true;
-            console.log(gameOver);
+    bonuses.forEach(function (bonus, i) {
+        bonus.drawRectangle();
+        bonus.update();
+        const distance = Math.hypot((bonus.x + bonus.width / 2) - (player.x + player.width / 2), (bonus.y + player.height / 2) - (player.y + player.height / 2));
+        if (bonus.y > canvas.height + 100) {
+            bonuses.splice(i, 1);
+        } else if (distance - bonus.width < 1) {
+            bonuses.splice(i, 1);
+            score += 5;
+            console.log("BONUS");
         }
     });
 
@@ -169,3 +189,4 @@ function animate() {
 animate();
 setInterval(drawRoadLines, 800);
 setInterval(spawnObstactle, 1500);
+setInterval(spawnBonus, 3500);
