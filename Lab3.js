@@ -20,14 +20,6 @@ class Actor {
         c.closePath();
     }
 
-    drawArc() {
-        c.beginPath();
-        c.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-        c.fillStyle = this.color;
-        c.fill();
-        c.closePath();
-    }
-
     update() {
         this.y = this.y + this.velocity;
     }
@@ -59,7 +51,7 @@ var bonusCount = 0;
 // Road
 var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
 //Player
-var player = new Actor(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 4);
+var player = new Actor(canvas.width / 2 - playerWidth / 2, canvas.height - playerHeight - 30, playerWidth, playerHeight, "#AF0000", 5);
 
 var roadLine = new Actor(canvas.width / 2 - roadLineWidth / 2, 0, roadLineWidth, roadLineHeight, "#FFFFFF", 1)
 var roadLines = [];
@@ -114,7 +106,6 @@ function spawnObstactle() {
     var obstacleX = getRandomNumber(220, 480);
 
     obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#000000", 3));
-    console.log("New obstacle")
 }
 
 var bonuses = [];
@@ -125,18 +116,72 @@ function spawnBonus() {
     var bonusX = getRandomNumber(200, 500);
 
     bonuses.push(new Actor(bonusX, -100, bonusWidth, bonusHeight, "#00FF2E", 3));
-    console.log("New Bonus")
 }
 
 function clearScreen() {
     c.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+var timeoutID1 = null;
+var timeoutID2 = null;
+var timeoutID3 = null;
+var timeoutID4 = null;
+
+function menu() {
+    clearScreen();
+    c.fillStyle = "#FA0000";
+    c.font = "28px Arial";
+    c.textAlign = "center";
+    c.fillText("NACISNIJ MYSZKA NA EKRAN ABY ROZPOCZAC GRE", canvas.width / 2, canvas.height / 2);
+    c.fillStyle = "#666666";
+    c.font = '26px Arial';
+    c.fillText("Poruszanie: lewa i prawa strzalka", canvas.width / 2 - 25, (canvas.height / 4) * 2.5);
+    c.font = '26px Arial';
+    c.fillText("Unikaj czarnych przeszkod. Zbieraj zielone bonusy!", canvas.width / 2 - 25, (canvas.height / 4) * 3);
+    // Start the game on a click
+    canvas.addEventListener("click", startGame);
+}
+
+function endGame() {
+    clearInterval(timeoutID1);
+    clearInterval(timeoutID2);
+    clearInterval(timeoutID3);
+    clearInterval(timeoutID4);
+    clearScreen();
+    gameOver = false;
+    c.fillStyle = "#FF4A4A";
+    c.font = "24px Arial";
+    c.textAlign = "center";
+    c.fillText("Game Over. Final Score:", canvas.width / 2 - 20, canvas.height / 2 - 100);
+    c.font = "80px Arial";
+    c.fillText(score, canvas.width / 2 - 20, canvas.height / 2);
+    c.font = "30px Arial";
+    c.fillStyle = "#666666";
+    c.fillText("Click on screen to play again", canvas.width / 2 - 20, canvas.height / 2 + 100);
+
+    canvas.addEventListener("click", startGame);
+}
+
+function startGame() {
+
+    timeoutID1 = setInterval(drawSideSquares, 80);
+    timeoutID2 = setInterval(drawRoadLines, 800);
+    timeoutID3 = setInterval(spawnObstactle, 1000);
+    timeoutID4 = setInterval(spawnBonus, 2300);
+    // New game setup
+    bonuses = [];
+    obstacles = [];
+    score = 0;
+    bonusCount = 0;
+
+    animate();
+    canvas.removeEventListener("click", startGame);
+}
+
 
 function animate() {
     clearScreen();
 
-    window.requestAnimationFrame(animate);
     road.drawRectangle();
 
     roadLines.forEach(function (roadLine, i) {
@@ -164,7 +209,6 @@ function animate() {
         } else if (distance - player.width * 2 < 1) {
             obstacles.splice(i, 1);
             gameOver = true;
-            console.log(gameOver);
         }
     });
 
@@ -194,17 +238,20 @@ function animate() {
     c.textAlign = "left";
     c.fillText("BONUSES:", 1, 200);
     c.fillStyle = "#FF0000";
-    c.fillText(bonusCount, 1, 230);
+    c.font = "35px Arial";
+    c.fillText(bonusCount, 40, 235);
     c.fillStyle = "#000000";
+    c.font = "22px Arial";
     c.fillText("SCORE:", 1, 280);
     c.fillStyle = "#FF0000";
-    c.fillText(score, 1, 310);
+    c.font = "35px Arial";
+    c.fillText(score, 40, 315);
 
-
+    if (gameOver) {
+        endGame();
+    } else {
+        window.requestAnimationFrame(animate);
+    }
 }
 
-animate();
-setInterval(drawSideSquares, 80);
-setInterval(drawRoadLines, 800);
-setInterval(spawnObstactle, 1000);
-setInterval(spawnBonus, 2300);
+menu();
