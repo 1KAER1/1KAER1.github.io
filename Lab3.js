@@ -34,9 +34,9 @@ class Actor {
 }
 
 //Road properties
-roadX = 100;
+roadX = 150;
 roadY = 0;
-roadWidth = canvas.width - 200;
+roadWidth = canvas.width - 300;
 roadHeight = canvas.height;
 
 //Road line properties
@@ -54,6 +54,7 @@ leftPressed = false;
 var gameOver = false;
 var destroy = false;
 var score = 0;
+var bonusCount = 0;
 
 // Road
 var road = new Actor(roadX, roadY, roadWidth, roadHeight, "#A8A8A8", 0);
@@ -72,10 +73,10 @@ var sideSquareWidth = 30;
 var sideSquareHeight = 30;
 
 function drawSideSquares() {
-    sideSquares.push(new Actor(70, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
-    sideSquares.push(new Actor(70, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
-    sideSquares.push(new Actor(700, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
-    sideSquares.push(new Actor(700, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
+    sideSquares.push(new Actor(120, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
+    sideSquares.push(new Actor(120, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
+    sideSquares.push(new Actor(650, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
+    sideSquares.push(new Actor(650, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
 }
 
 addEventListener('keydown', function (e) {
@@ -110,9 +111,9 @@ var obstacleWidth = 120;
 var obstacleHeight = 20;
 
 function spawnObstactle() {
-    var obstacleX = getRandomNumber(100, 600);
+    var obstacleX = getRandomNumber(220, 480);
 
-    obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#FFFF00", 3));
+    obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#000000", 3));
     console.log("New obstacle")
 }
 
@@ -121,7 +122,7 @@ var bonusWidth = 30;
 var bonusHeight = 30;
 
 function spawnBonus() {
-    var bonusX = getRandomNumber(100, 600);
+    var bonusX = getRandomNumber(200, 500);
 
     bonuses.push(new Actor(bonusX, -100, bonusWidth, bonusHeight, "#00FF2E", 3));
     console.log("New Bonus")
@@ -176,7 +177,7 @@ function animate() {
         } else if (distance - bonus.width < 1) {
             bonuses.splice(i, 1);
             score += 5;
-            console.log("BONUS");
+            bonusCount += 1;
         }
     });
 
@@ -188,11 +189,22 @@ function animate() {
 
     player.drawRectangle();
 
+    c.fillStyle = "#000000";
+    c.font = "22px Arial";
+    c.textAlign = "left";
+    c.fillText("BONUSES:", 1, 200);
+    c.fillStyle = "#FF0000";
+    c.fillText(bonusCount, 1, 230);
+    c.fillStyle = "#000000";
+    c.fillText("SCORE:", 1, 280);
+    c.fillStyle = "#FF0000";
+    c.fillText(score, 1, 310);
+
 
 }
 
 animate();
 setInterval(drawSideSquares, 80);
 setInterval(drawRoadLines, 800);
-setInterval(spawnObstactle, 1500);
-setInterval(spawnBonus, 3500);
+setInterval(spawnObstactle, 1000);
+setInterval(spawnBonus, 2300);

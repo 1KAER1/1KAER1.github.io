@@ -203,7 +203,7 @@ function animate() {
     c.fillStyle = "#009900";
     c.font = "24px Arial";
     c.textAlign = "left";
-    c.fillText("Score: " + score, 1, 25);
+    c.fillText("Score: " + score, 1, 60);
 
     c.fillStyle = "#990000";
     c.font = "24px Arial";
