@@ -67,6 +67,17 @@ function drawRoadLines() {
     roadLines.push(new Actor(canvas.width / 2 - roadLineWidth / 2, -100, roadLineWidth, roadLineHeight, "#FFFFFF", 3));
 }
 
+var sideSquares = [];
+var sideSquareWidth = 30;
+var sideSquareHeight = 30;
+
+function drawSideSquares() {
+    sideSquares.push(new Actor(70, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
+    sideSquares.push(new Actor(70, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
+    sideSquares.push(new Actor(700, -100, sideSquareWidth, sideSquareHeight, "#FF0000", 3));
+    sideSquares.push(new Actor(700, -100 - sideSquareHeight, sideSquareWidth, sideSquareHeight, "#FFFFFF", 3));
+}
+
 addEventListener('keydown', function (e) {
     e.preventDefault();
     if (e.keyCode === 39) {
@@ -101,7 +112,7 @@ var obstacleHeight = 20;
 function spawnObstactle() {
     var obstacleX = getRandomNumber(100, 600);
 
-    obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#BB2100", 3));
+    obstacles.push(new Actor(obstacleX, -100, obstacleWidth, obstacleHeight, "#FFFF00", 3));
     console.log("New obstacle")
 }
 
@@ -112,22 +123,8 @@ var bonusHeight = 30;
 function spawnBonus() {
     var bonusX = getRandomNumber(100, 600);
 
-    bonuses.push(new Actor(bonusX, -100, bonusWidth, bonusHeight, "#68FF8A", 3));
+    bonuses.push(new Actor(bonusX, -100, bonusWidth, bonusHeight, "#00FF2E", 3));
     console.log("New Bonus")
-}
-
-function isColliding(x) {
-    const distance = Math.hypot(x.x - player.x, x.y - player.y);
-    if (distance - x.width < 1) {
-        // score += 5;
-        // enemiesDestroyed++;
-        // enemyCount--;
-        console.log(distance)
-    } else {
-        score += 5;
-        return false;
-    }
-    return true;
 }
 
 function clearScreen() {
@@ -146,6 +143,14 @@ function animate() {
         roadLine.update();
         if (roadLine.y > canvas.height + 100) {
             roadLines.splice(i, 1);
+        }
+    });
+
+    sideSquares.forEach(function (sideSquare, i) {
+        sideSquare.drawRectangle();
+        sideSquare.update();
+        if (sideSquare.y > canvas.height + 100) {
+            sideSquares.splice(i, 1);
         }
     });
 
@@ -187,6 +192,7 @@ function animate() {
 }
 
 animate();
+setInterval(drawSideSquares, 80);
 setInterval(drawRoadLines, 800);
 setInterval(spawnObstactle, 1500);
 setInterval(spawnBonus, 3500);
