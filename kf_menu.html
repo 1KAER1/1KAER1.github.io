@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- 
+ 		CSS JS JSON PETLE TWORZENIE ELEMENTOW WKLADANIE ELEMENTOW SPRAWDZENIE TEKSTU ETC 
+
+	WIEDZA : 
+	https://www.w3schools.com/js/js_htmldom_eventlistener.asp
+
+	KOLO FORTUNY
+	
+	tło pod spodem (css background image, background position , background size)
+	dwa przyciski tworzone funkcją Start Game : jeden start drugie Autor 
+	Start zaczyna gre A
+	Autor : Fixed div szer/wys 60% 60% , prawy gorny rog zamknij, z informacją o autorze imie nazwisko numer albumu cos od siebie :)
+
+
+	
+	
+
+
+ 	-->
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+
+    
+
+    <a href="WWW.html">GO BACK</a>
+
+
+    <div id="guessTable">
+        <button id="startButton" onclick="location.href='kolo_fortuny.html'" type="button">ZACZNIJ GRĘ</button>
+        <button id="authorInfo" onclick="displayAuthorInfo()">O AUTORZE</button>
+    </div>
+
+    <div id="info">
+        <p>KACPER ROLEWSKI</br>224853</br>A szkoda gadać</p>
+        <button id="close" onclick="hideAuthorInfo()">X</button>
+    </div>
+
+    <script>
+        function displayAuthorInfo(){
+            document.getElementById("info").style.display = "block";
+        }
+
+        function hideAuthorInfo()
+        {
+            document.getElementById("info").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

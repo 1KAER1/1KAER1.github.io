@@ -1,15 +1,184 @@
-#wrap {
-    position: relative;
-    float: left;
-    width: 100%;
-    border: 1px solid red;
+body {
+    background-image: url('images/bck.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: sans-serif;
 }
 
-.letter {
-    width: 40px;
-    height: 40px;
-    color: red;
-    font-size: 20px;
-    float: left;
-    background-color: rgb(44, 44, 44);
+#guessTable {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: rgb(245, 213, 175);
+    display: grid;
+    row-gap: 50px;
+    border-radius: 20px 10px 20px 10px;
+    transform: translate(-50%, -50%);
+    padding: 200px;
+    width: 50%;
+    box-shadow: inset 0 0 1em grey;
+}
+
+#info {
+    display: none;
+    width: 60%;
+    height: 60%;
+    position: fixed;
+    background-color: rgb(243, 240, 211);
+    border-radius: 20px 10px 20px 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 100px;
+    box-shadow: inset 0 0 1em rgb(156, 154, 121);
+    color: rgb(71, 71, 71);
+}
+
+#close {
+    position: absolute;
+    left: 95%;
+    top: 5%;
+    text-decoration: none;
+    border: none;
+    height: 50px;
+    width: 50px;
+    font-size: 40%;
+    font-weight: bold;
+}
+
+#close:hover {
+    box-shadow: inset 0 0 .1em rgb(54, 52, 49);
+}
+
+#startButton {
+    position: relative;
+    left: -1%;
+    top: -800%;
+    height: 2000%;
+    width: 50%;
+    background-color: rgb(228, 177, 116);
+    border: none;
+}
+
+#startButton:hover {
+    box-shadow: 0px 0px 30px black;
+}
+
+#authorInfo {
+    position: relative;
+    top: -1200%;
+    left: 51%;
+    height: 2000%;
+    width: 50%;
+    border: none;
+    background-color: rgb(228, 177, 116);
+}
+
+#authorInfo:hover {
+    box-shadow: 0px 0px 30px black;
+}
+
+#wrap {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    float: center;
+    width: 200px;
+    height: 100px;
+}
+
+#wpiszLitere {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-120%, -50%);
+    background-color: rgb(194, 153, 99);
+    color: white;
+    border-radius: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;
+    border: 0px;
+    box-shadow: inset 0 0 .1em rgb(151, 117, 74);
+}
+
+#graj {
+    transform: translate(50%, 30%);
+    height: 50px;
+    width: 80px;
+    background-color: #44c767;
+    border-radius: 28px;
+    border: 1px solid #18ab29;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 17px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+    text-align: center;
+    font-weight: bold;
+}
+
+#graj:hover {
+    box-shadow: inset 0 0 .1em rgb(54, 52, 49);
+}
+
+#graj:active {
+    position: relative;
+    top: 1px;
+}
+
+#wpiszLitere:hover {
+    box-shadow: inset 0 0 1em rgb(211, 134, 35);
+}
+
+#gameInfo {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 60px;
+    margin: 0 auto;
+    color: rgb(214, 111, 52);
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#playerGuess {
+    margin: 0 auto;
+    display: block;
+    padding: 70px;
+    background-color: rgb(228, 177, 116);
+    border-radius: 20px 10px 20px 10px;
+    color: white;
+    box-shadow: inset 0 0 1em grey;
+    box-shadow: 0px 0px 30px black;
+    width: fit-content;
+}
+
+.emptyBlock, .spacebar-block {
+    margin: 10px;
+    height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    padding: 10px;
+}
+
+.emptyBlock {
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+    background-color: rgb(151, 117, 74);
+    text-transform: capitalize;
+    box-shadow: 0px 0px 10px black;
+    color: rgb(151, 117, 74);
+    font-size: 50px;
+}
+
+.block {
+    display: flex;
+    justify-content: center;
 }
