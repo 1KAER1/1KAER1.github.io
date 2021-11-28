@@ -28,7 +28,7 @@ function validateOnePesel(){
     worker1.postMessage([year,month,day]);
   }
   
-  function byNumber(){
+  function findValidPesels(){
     var worker2 = new Worker('find_valid_pesels.js');
   
     worker2.addEventListener('message', function(e) {
