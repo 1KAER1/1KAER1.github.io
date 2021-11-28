@@ -2,7 +2,7 @@ function validateOnePesel(){
     var worker = new Worker('validate_one_pesel.js');
   
     worker.addEventListener('message', function(e) {
-      let pesels = document.getElementById("pesels");
+      var pesels = document.getElementById("pesels");
       pesels.innerHTML = e.data;
     }, false);
   
@@ -17,7 +17,7 @@ function validateOnePesel(){
     var worker1 = new Worker('show_all_pesels.js');
   
     worker1.addEventListener('message', function(e) {
-      let pesels = document.getElementById("pesels");
+      var pesels = document.getElementById("pesels");
       pesels.innerHTML = e.data.join("\n");
     }, false);
   
@@ -32,7 +32,7 @@ function validateOnePesel(){
     var worker2 = new Worker('find_valid_pesels.js');
   
     worker2.addEventListener('message', function(e) {
-      let pesels = document.getElementById("pesels");
+      var pesels = document.getElementById("pesels");
       pesels.innerHTML = e.data.join("\n");
     }, false);
   
