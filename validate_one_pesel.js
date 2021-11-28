@@ -16,10 +16,10 @@ function validate(pesel) {
 
   for (var i = 0; i < 10; i++) {
     sum += (pesel.substring(i, i+1) * weight[i]);
-    console.log("SUMA " + i + sum);
+    console.log("SUMA " + i + " " + sum);
   }
 
-  var check = (sum % 10) - 10;
+  var check = 10 - (sum % 10);
   console.log(check);
 
   if(check == 10){
@@ -34,3 +34,18 @@ function validate(pesel) {
     return "Nieprawidłowy PESEL";
   }
 }
+
+9  8  1  2  1  7  0  4  7  3  8
+
+1, 3, 7, 9, 1, 3, 7, 9, 1, 3
+
+9
+24
+7
+18
+1
+21
+0
+36
+7
+9
