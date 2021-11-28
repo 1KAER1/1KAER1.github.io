@@ -27,9 +27,9 @@ function validate(pesel) {
 
   if(check == pesel.substr(pesel.length - 1, 1)){
     console.log("ok");
-    return "To jest prawidłowy PESEL";    
+    return "Prawidłowy PESEL";    
   } else {
     console.log("Not ok");
-    return "To nie jest prawidłowy PESEL";
+    return "Nieprawidłowy PESEL";
   }
 }
