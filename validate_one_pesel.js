@@ -34,18 +34,3 @@ function validate(pesel) {
     return "Nieprawidłowy PESEL";
   }
 }
-
-9  8  1  2  1  7  0  4  7  3  8
-
-1, 3, 7, 9, 1, 3, 7, 9, 1, 3
-
-9
-24
-7
-18
-1
-21
-0
-36
-7
-9
