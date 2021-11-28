@@ -13,9 +13,6 @@ function validate(pesel) {
   
   var weight = new Array(1, 3, 7, 9, 1, 3, 7, 9, 1, 3);
   var sum = 0;
-  var ok = true;
-
-  ok = ok && (pesel.substr(4, 2) >= 01 && pesel.substr(4, 2) <= 31);
 
   for (var i = 0; i < weight.length; i++) {
     sum += (parseInt(pesel.substring(i, 1)) * weight[i]);
@@ -28,9 +25,10 @@ function validate(pesel) {
   }
 
   if(check == pesel.substr(pesel.length - 1, 1)){
-    console.log(ok);
+    console.log("ok");
     return "To jest prawidłowy PESEL";    
   } else {
+    console.log("Not ok");
     return "To nie jest prawidłowy PESEL";
   }
 }
