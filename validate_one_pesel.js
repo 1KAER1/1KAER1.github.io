@@ -14,9 +14,9 @@ function validate(pesel) {
   var weight = new Array(1, 3, 7, 9, 1, 3, 7, 9, 1, 3);
   var sum = 0;
 
-  for (var i = 0; i < weight.length; i++) {
+  for (var i = 0; i < 10; i++) {
     sum += (pesel.substring(i, 1) * weight[i]);
-    console.log("SUMA " + sum);
+    console.log("SUMA " + i + sum);
   }
 
   var check = (sum % 10) - 10;
