@@ -16,6 +16,7 @@ function validate(pesel) {
 
   for (var i = 0; i < weight.length; i++) {
     sum += (parseInt(pesel.substring(i, 1)) * weight[i]);
+    console.log("SUMA " + sum);
   }
 
   var check = (sum % 10) - 10;
