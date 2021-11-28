@@ -19,6 +19,7 @@ function validate(pesel) {
   }
 
   var check = (sum % 10) - 10;
+  console.log(check);
 
   if(check == 10){
     check = 0;
