@@ -21,13 +21,15 @@ function validate(pesel) {
     sum += (parseInt(pesel.substring(i, 1)) * weight[i]);
   }
 
-  var check = 10 - (sum % 10);
-  if (check == 10) {
+  var check = (sum % 10) - 10;
+
+  if(check == 10){
     check = 0;
   }
 
-  if (check == pesel.substr(pesel.length - 1, 1) && ok) {
-    return "To jest prawidłowy PESEL";
+  if(check == pesel.substr(pesel.length - 1, 1)){
+    console.log(ok);
+    return "To jest prawidłowy PESEL";    
   } else {
     return "To nie jest prawidłowy PESEL";
   }
