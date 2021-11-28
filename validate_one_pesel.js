@@ -1,7 +1,7 @@
 this.addEventListener('message', function (e) {
   var data = e.data;
   var PESEL = "";
-  PESEL = data[0].substr(2, 3) + data[1] + data[2] + data[3];
+  PESEL = data[0] + data[1] + data[2] + data[3];
   this.postMessage(validate(PESEL));
 }, false);
 
