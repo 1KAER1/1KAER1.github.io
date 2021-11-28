@@ -1,43 +1,36 @@
-this.addEventListener('message', function(e) {
-    var data = e.data;
-    this.postMessage(calculate(data));
-  }, false);
+this.addEventListener('message', function (e) {
+  var data = e.data;
+  var PESEL = "";
+  console.log(data[0]);
+  console.log(data[1]);
+  console.log(data[2]);
+  console.log(data[3]);
+  PESEL = data[0] + data[1] + data[2] + data[3];
+  this.postMessage(validate(PESEL));
+}, false);
 
-
-  function generateStartPesel(data){
-    var PESEL = "";
-    PESEL = data[0].substr(2,3) + data[1] + data[2];
-    return PESEL;
-  }
-
-  function validate(pesel){
-    let weight = [1,3,7,9,1,3,7,9,1,3];
-    let sum =0;
-    let controlNum = parseInt(pesel.substring(10, 11));
+  function validate(pesel) {
   
-    for(let i = 0; i<weight.length;i++){
-      sum += (parseInt(pesel.substring(i, i + 1)) * weight[i]);
+    var weight = new Array(1, 3, 7, 9, 1, 3, 7, 9, 1, 3);
+    var sum = 0;
+  
+    for (var i = 0; i < 10; i++) {
+      sum += (pesel.substring(i, i+1) * weight[i]);
+      console.log("SUMA " + i + " " + sum);
     }
-    sum = sum % 10;
-    if((10 - sum) % 10 === controlNum){
-      return true;
-    }else return false;
+  
+    var check = 10 - (sum % 10);
+    console.log(check);
+  
+    if(check == 10){
+      check = 0;
+    }
+  
+    if(check == pesel.substr(pesel.length - 1, 1)){
+      console.log("ok");
+      return true;    
+    } else {
+      console.log("Not ok");
+      return false;
+    }
   }
-
-  function generateUniqueNumber(num){
-    var blank = "00000";
-    var result ="";
-    return result = blank.substr(0,5-num.length)+num;
-}
-
-function calculate(data){
-    var array = [];
-    var start = generateStartPesel(data);
-    var pesel ="";
-    for (var i = 0;i<100000; i++){
-        pesel = start + generateUniqueNumber(i);
-        if(validate(pesel)) array.push(pesel);
-        pesel = "";
-    }
-    return array;
-}
