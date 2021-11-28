@@ -6,19 +6,22 @@
 </head>
 
 <body>
-
+    <script type="text/javascript" src="pesel.js"></script>
     <div id="pesel">
-        <input type="text" id="year" name="year" placeholder="Year">
-        <input type="text" id="month" name="month" placeholder="Month">
-        <input type="text" id="day" name="Day" placeholder="Day">
-        <input type="text" id="numbers" name="numbers" placeholder="Numbers">
+        <input type="text" id="year" name="year" placeholder="Year" maxlength="2">
+        <input type="text" id="month" name="month" placeholder="Month" maxlength="2">
+        <input type="text" id="day" name="day" placeholder="Day" maxlength="2">
+        <input type="text" id="numbers" name="numbers" placeholder="Numbers" maxlength="5">
     </div>
 
     <div>
-        <button id="validate" onclick="validate_one_pesel.js">VALIDATE</button>
-        <button id="showPesels" onclick="show_all_pesels.js">SHOW PESELS</button>
-        <button id="findValid" onclick="find_valid_pesels.js">FIND VALID</button>
+        <button id="validate" onclick="validateOnePesel()">VALIDATE</button>
+        <button id="showPesels" onclick="showAllPesels()">SHOW PESELS</button>
+        <button id="findValid" onclick="findValidPesels()">FIND VALID</button>
     </div>
+
+    <div id="pesels">PESELE</div>
+    
 
 </body>
 

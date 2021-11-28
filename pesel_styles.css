@@ -22,3 +22,11 @@
       width: 200px;
       background-color: #85db82;
   }
+
+  #pesels{
+    background-color: #80dbcf;
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 20%;
+  }
